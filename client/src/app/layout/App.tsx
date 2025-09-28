@@ -1,11 +1,11 @@
 import { Box, Container, createTheme, CssBaseline } from "@mui/material";
 import NavBar from "./NavBar";
 import { ThemeProvider } from "@emotion/react";
-import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { useAppSelector } from "../store/store";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode } = useAppSelector((state) => state.ui);
   const palleteType = darkMode ? "dark" : "light";
   const theme = createTheme({
     palette: {
@@ -16,14 +16,10 @@ function App() {
     },
   });
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline></CssBaseline>
-      <NavBar toggleDarkMode={toggleDarkMode} darkMode={darkMode}></NavBar>
+      <NavBar></NavBar>
       <Box
         sx={{
           minHeight: "100vh",
