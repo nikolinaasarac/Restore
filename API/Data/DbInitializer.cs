@@ -1,5 +1,6 @@
 using System;
 using API.Entities;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data;
@@ -21,7 +22,14 @@ public class DbInitializer
     {
         context.Database.Migrate();
 
-        if (context.Products.Any()) return;
+        
+        
+        Console.WriteLine("➡️ Provjeravam da li postoje proizvodi...");
+        if (context.Products.Any())
+        {
+             Console.WriteLine("⚠️ Proizvodi već postoje u bazi – preskačem seed.");
+            return;
+        }
 
         var products = new List<Product>
         {
